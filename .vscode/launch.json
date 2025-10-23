@@ -1,5 +1,5 @@
 {
-    "version": "0.2.0",
+    "version": "0.0.2",
     "configurations": [
         {
             "name": "Attach to Odoo (Docker)",
@@ -7,7 +7,7 @@
             "request": "attach",
             "connect": {
                 "host": "localhost",
-                "port": 8888
+                "port": "${localEnv:ODOO_DEBUG_PORT}"
             },
             "pathMappings": [
                 {
@@ -15,7 +15,8 @@
                     "remoteRoot": "/mnt/extra-addons"
                 }
             ],
-            "justMyCode": false
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

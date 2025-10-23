@@ -1,8 +1,5 @@
 {
-    "python.analysis.extraPaths": [
-        "./addons",
-        "${workspaceFolder}/.venv/lib/python3.12/site-packages"
-    ],
+    "python.analysis.extraPaths": ["./addons"],
     "python.analysis.autoImportCompletions": true,
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.diagnosticMode": "workspace",

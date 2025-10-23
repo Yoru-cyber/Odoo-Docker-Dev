@@ -1,11 +1,7 @@
 #!/bin/bash
 
 set -e
-rm -rf \
-  /usr/lib/python3/dist-packages/PyPDF2* \
-  /usr/lib/python3/dist-packages/pypdf* \
-  /usr/local/lib/python3*/dist-packages/PyPDF2* \
-  /usr/local/lib/python3*/dist-packages/pypdf*
+
 # set the postgres database host, port, user and password according to the environment
 # and pass them as arguments to the odoo process if not present in the config file
 : ${HOST:=${DB_PORT_5432_TCP_ADDR:='db'}}
@@ -16,8 +12,6 @@ rm -rf \
 # install python packages
 pip3 install pip --upgrade
 pip3 install --ignore-installed -r /etc/odoo/requirements.txt
-
-# sed -i 's|raise werkzeug.exceptions.BadRequest(msg)|self.jsonrequest = {}|g' /usr/lib/python3/dist-packages/odoo/http.py
 
 # Install logrotate if not already installed
 if ! dpkg -l | grep -q logrotate; then
@@ -34,7 +28,7 @@ DB_ARGS=()
 function check_config() {
     param="$1"
     value="$2"
-    if grep -q -E "^\s*\b${param}\b\s*=" "$ODOO_RC" ; then       
+    if grep -q -E "^\s*\b${param}\b\s*=" "$ODOO_RC" ; then
         value=$(grep -E "^\s*\b${param}\b\s*=" "$ODOO_RC" |cut -d " " -f3|sed 's/["\n\r]//g')
     fi;
     DB_ARGS+=("--${param}")
